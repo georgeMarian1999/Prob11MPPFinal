@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="domain.Repositories.CursaRepoTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2020-03-10T11:35:26" hostname="Marians-MacBook-Air.local" time="0.004">
+  <properties/>
+  <testcase name="delete" classname="domain.Repositories.CursaRepoTest" time="0.001"/>
+  <testcase name="findOne" classname="domain.Repositories.CursaRepoTest" time="0.0"/>
+  <testcase name="update" classname="domain.Repositories.CursaRepoTest" time="0.001"/>
+  <testcase name="save" classname="domain.Repositories.CursaRepoTest" time="0.0"/>
+  <testcase name="size" classname="domain.Repositories.CursaRepoTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
