@@ -76,6 +76,9 @@ public class Main {
             P.delete(800);
             E.delete(34);
             C.delete(111);
+            System.out.println(A.LocalLogin("mgar1992","12234"));
+            System.out.println(A.LocalLogin("mgar1992","22"));
+            System.out.println(A.LocalLogin("afsnajf","ajf3"));
 
         }
     }

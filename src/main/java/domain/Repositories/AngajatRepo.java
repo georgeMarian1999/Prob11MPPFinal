@@ -25,10 +25,6 @@ public class AngajatRepo implements AngajatRepository{
         utils=new JDBC(props);
     }
 
-    @Override
-    public Iterable<Angajat> filterBy(String username) {
-        return null;
-    }
 
     @Override
     public int size() {
@@ -149,5 +145,26 @@ public class AngajatRepo implements AngajatRepository{
         logger.traceExit(Employees);
 
         return Employees;
+    }
+
+    @Override
+    public boolean LocalLogin(String username, String Password) {
+        Connection con=utils.getConnection();
+        logger.traceEntry("Se cauta anajatul cu username-ul {}",username);
+        try(PreparedStatement preStmt=con.prepareStatement("select idAngajat,username,password from Angajat where username=? AND password=?")){
+            preStmt.setString(1,username);
+            preStmt.setString(2,Password);
+            try(ResultSet result=preStmt.executeQuery()){
+                if(result.next()){
+                    logger.traceExit("S-a gasit angajatul");
+                    return true;
+                }
+            }
+        }catch(SQLException ex){
+            logger.error(ex);
+        }
+        logger.traceExit("Nu s-a gasit angajatul");
+        return false;
+
     }
 }
