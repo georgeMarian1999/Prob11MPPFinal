@@ -4,6 +4,7 @@ import domain.Models.Angajat;
 import domain.Models.Participant;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.graalvm.compiler.core.common.type.ArithmeticOpTable;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -147,5 +148,48 @@ public class ParticipantRepo implements ParticipantRepository {
         logger.traceExit(Participanti);
 
         return Participanti;
+    }
+
+    @Override
+    public int findIdByName(String nume) {
+        int id;
+        logger.traceEntry("Se cauta id-ul participantului {}",nume);
+
+        Connection con=utils.getConnection();
+
+        try(PreparedStatement preStmt=con.prepareStatement("select idParticipant from Participant where nume=?")){
+            preStmt.setString(1,nume);
+            try(ResultSet result=preStmt.executeQuery()){
+                if(result.next()){
+                    id=result.getInt("idParticipant");
+                    return id;
+                }
+            }
+
+        }catch(SQLException ex){
+            logger.error(ex);
+        }
+        return 0;
+    }
+
+    @Override
+    public int findMaxId() {
+        int id;
+        logger.traceEntry("Se cauta id-ul maxim din tabela Participant");
+
+        Connection con=utils.getConnection();
+
+        try(PreparedStatement preStmt=con.prepareStatement("select max(idParticipant) as maxim from Participant")){
+            try(ResultSet result=preStmt.executeQuery()){
+                if(result.next()){
+                    id=result.getInt("maxim");
+                    return id;
+                }
+            }
+
+        }catch(SQLException ex){
+            logger.error(ex);
+        }
+        return 0;
     }
 }

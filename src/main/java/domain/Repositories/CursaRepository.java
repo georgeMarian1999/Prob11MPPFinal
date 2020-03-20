@@ -7,4 +7,5 @@ import java.util.Vector;
 
 public interface CursaRepository extends CRUDRepository<Integer, Cursa> {
     Vector<DTOBJCursa> GroupByCapacitate();
+    int findIdByCapacitate(int capacitate);
 }

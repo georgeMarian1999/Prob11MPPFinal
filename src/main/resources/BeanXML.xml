@@ -12,17 +12,25 @@
     <bean id="repoAngajat" class="domain.Repositories.AngajatRepo">
         <constructor-arg ref="jdbcProps"/>
     </bean>
+    <bean id="repoCursa" class="domain.Repositories.CursaRepo">
+        <constructor-arg ref="jdbcProps"/>
+    </bean>
     <bean id="repoEchipa" class="domain.Repositories.EchipaRepo">
         <constructor-arg ref="jdbcProps"/>
     </bean>
     <bean id="repoParticipant" class="domain.Repositories.ParticipantRepo">
         <constructor-arg ref="jdbcProps"/>
     </bean>
-    <bean id="repoCursa" class="domain.Repositories.CursaRepo">
-        <constructor-arg ref="jdbcProps"/>
-    </bean>
+
     <bean id="repoInscriere" class="domain.Repositories.InscriereRepo">
         <constructor-arg ref="jdbcProps"/>
+    </bean>
+    <bean id="service" class="domain.Service.Service">
+        <constructor-arg ref="repoAngajat"/>
+        <constructor-arg ref="repoCursa"/>
+        <constructor-arg ref="repoEchipa"/>
+        <constructor-arg ref="repoParticipant"/>
+        <constructor-arg ref="repoInscriere"/>
     </bean>
 
 

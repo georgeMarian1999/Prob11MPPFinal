@@ -165,4 +165,26 @@ public class CursaRepo implements CursaRepository {
         }
         return curse;
     }
+
+    @Override
+    public int findIdByCapacitate(int capacitate) {
+        int id;
+
+        logger.traceEntry("Se cauta id-ul cursei cu capacitatea {}",capacitate);
+
+        Connection con=utils.getConnection();
+
+        try(PreparedStatement preStmt=con.prepareStatement("select idCursa from Cursa where capacitate=?")){
+            preStmt.setInt(1,capacitate);
+            try(ResultSet result=preStmt.executeQuery()) {
+                if (result.next()){
+                    id=result.getInt("idCursa");
+                    return id;
+                }
+            }
+        }catch(SQLException ex){
+            logger.error(ex);
+        }
+        return 0;
+    }
 }

@@ -76,6 +76,17 @@ public class Service {
     public Vector<DTOBJPartCapa> cautare(String numeEchipa){
         return this.echipe.cautare(numeEchipa);
     }
+    public void InscriereParticipant(int capacitate,String numeParticipant,String numeEchipa){
+        int idCursa,idEchipa,idParticipant,idInscriere;
+        idParticipant=this.participanti.findMaxId()+1;
+        idEchipa=this.echipe.FindidByName(numeEchipa);
+        idCursa=this.curse.findIdByCapacitate(capacitate);
+        idInscriere=this.inscrieri.findMaxId()+1;
+        Participant Nou=new Participant(idParticipant,numeParticipant,idEchipa);
+        this.AddParticipant(Nou);
+        Inscriere Noua=new Inscriere(idInscriere,idParticipant,idCursa);
+        this.AddInscriere(Noua);
+    }
 
 
 }

@@ -149,4 +149,25 @@ public class EchipaRepo implements EchipaRepository {
         }
         return obiecte;
     }
+
+    @Override
+    public int FindidByName(String numeEchipa) {
+        int id;
+        logger.traceEntry("Se cauta id-ul echipei cu numele {}",numeEchipa);
+
+        Connection con=utils.getConnection();
+
+        try(PreparedStatement preStmt=con.prepareStatement("select idEchipa from Echipa where nume=?")){
+            preStmt.setString(1,numeEchipa);
+            try(ResultSet result=preStmt.executeQuery()){
+                if(result.next()) {
+                    id = result.getInt("idEchipa");
+                    return id;
+                }
+            }
+        }catch(SQLException ex){
+            logger.error(ex);
+        }
+        return 0;
+    }
 }

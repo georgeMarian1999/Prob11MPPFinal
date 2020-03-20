@@ -80,4 +80,25 @@ public class InscriereRepo implements InscriereRepository {
     public Iterable<Inscriere> findAll() {
         return null;
     }
+
+    @Override
+    public int findMaxId() {
+        int id;
+        logger.traceEntry("Se cauta id-ul maxim din tabela Inscrierer");
+
+        Connection con=utils.getConnection();
+
+        try(PreparedStatement preStmt=con.prepareStatement("select max(idInscriere) as maxim from Inscriere")){
+            try(ResultSet result=preStmt.executeQuery()){
+                if(result.next()){
+                    id=result.getInt("maxim");
+                    return id;
+                }
+            }
+
+        }catch(SQLException ex){
+            logger.error(ex);
+        }
+        return 0;
+    }
 }

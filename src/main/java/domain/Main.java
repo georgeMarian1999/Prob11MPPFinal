@@ -2,6 +2,7 @@ package domain;
 
 import domain.Models.*;
 import domain.Repositories.*;
+import domain.Service.Service;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -36,6 +37,11 @@ public class Main {
         InscriereRepo insc= context.getBean(InscriereRepo.class);
         return insc;
     }
+    static Service getService(){
+        ApplicationContext context=new ClassPathXmlApplicationContext("BeanXML.xml");
+        Service service=context.getBean(Service.class);
+        return service;
+    }
         public static void main(String[] args) {
             Properties props = new Properties();
             try {
@@ -59,12 +65,12 @@ public class Main {
             System.out.println("InscriereRepo size is "+I.size());
             System.out.println(A.findOne(1).getUsername());
             System.out.println(C.findOne(3).getCapacitate());
-            System.out.println(E.findOne(25).getNume());
+            System.out.println(E.findOne(1).getNume());
             System.out.println(P.findOne(3).getNume());
             Angajat Ang=new Angajat(200,"test","test2");
             A.save(Ang);
             System.out.println(A.findOne(200).getUsername());
-            Participant part=new Participant(800,"John",25);
+            Participant part=new Participant(800,"John",1);
             P.save(part);
             System.out.println(P.findOne(800).getNume());
             Echipa Ec=new Echipa(34,"Audi");
@@ -92,6 +98,16 @@ public class Main {
                 System.out.print(" ");
                 System.out.println(test.elementAt(i).getCapactiate());
             }
+            System.out.println("Id ul echipei BMW este "+E.FindidByName("BMW"));
+            System.out.println("Id ul maxim din Participant este "+P.findMaxId());
+
+            Service S=getService();
+            System.out.println(S.AngajatiSize());
+            System.out.println(S.CurseSize());
+            System.out.println(S.EchipeSize());
+            System.out.println(S.ParticipantiSize());
+            S.InscriereParticipant(500,"Marcel Mihai","Suzuki");
+
 
 
         }

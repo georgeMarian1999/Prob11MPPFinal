@@ -5,7 +5,8 @@ public class Inscriere implements Entity<Integer> {
     private Integer idParticipant;
     private Integer idCursa;
 
-    public Inscriere(Integer idParticipant,Integer idCursa){
+    public Inscriere(Integer idInscriere,Integer idParticipant,Integer idCursa){
+        this.idInscriere=idInscriere;
         this.idParticipant=idParticipant;
         this.idCursa=idCursa;
     }
