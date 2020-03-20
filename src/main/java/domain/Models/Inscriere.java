@@ -1,12 +1,23 @@
 package domain.Models;
 
-public class Inscriere {
+public class Inscriere implements Entity<Integer> {
+    private Integer idInscriere;
     private Integer idParticipant;
     private Integer idCursa;
 
     public Inscriere(Integer idParticipant,Integer idCursa){
         this.idParticipant=idParticipant;
         this.idCursa=idCursa;
+    }
+
+    @Override
+    public Integer getId() {
+        return this.idInscriere;
+    }
+
+    @Override
+    public void setID(Integer integer) {
+        this.idInscriere=integer;
     }
 
     public Integer getIdParticipant() {

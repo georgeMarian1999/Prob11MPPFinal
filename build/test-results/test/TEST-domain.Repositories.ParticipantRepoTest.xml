@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="domain.Repositories.ParticipantRepoTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2020-03-10T11:35:26" hostname="Marians-MacBook-Air.local" time="0.004">
+<testsuite name="domain.Repositories.ParticipantRepoTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2020-03-20T16:03:57" hostname="Marians-Air" time="0.006">
   <properties/>
-  <testcase name="delete" classname="domain.Repositories.ParticipantRepoTest" time="0.001"/>
+  <testcase name="delete" classname="domain.Repositories.ParticipantRepoTest" time="0.003"/>
   <testcase name="findOne" classname="domain.Repositories.ParticipantRepoTest" time="0.0"/>
-  <testcase name="update" classname="domain.Repositories.ParticipantRepoTest" time="0.0"/>
+  <testcase name="update" classname="domain.Repositories.ParticipantRepoTest" time="0.001"/>
   <testcase name="save" classname="domain.Repositories.ParticipantRepoTest" time="0.0"/>
   <testcase name="size" classname="domain.Repositories.ParticipantRepoTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>

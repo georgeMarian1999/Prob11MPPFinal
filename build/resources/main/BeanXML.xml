@@ -21,6 +21,9 @@
     <bean id="repoCursa" class="domain.Repositories.CursaRepo">
         <constructor-arg ref="jdbcProps"/>
     </bean>
+    <bean id="repoInscriere" class="domain.Repositories.InscriereRepo">
+        <constructor-arg ref="jdbcProps"/>
+    </bean>
 
 
 </beans>

@@ -1,6 +1,7 @@
 package domain.Repositories;
 
 import domain.Models.Cursa;
+import domain.Models.DTOBJCursa;
 import domain.Models.Participant;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,9 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 public class CursaRepo implements CursaRepository {
     private JDBC utils;
@@ -26,10 +25,7 @@ public class CursaRepo implements CursaRepository {
         utils=new JDBC(props);
     }
 
-    @Override
-    public Iterable<Cursa> filterByCapacitate(Integer capacitate) {
-        return null;
-    }
+
 
     @Override
     public int size() {
@@ -145,5 +141,28 @@ public class CursaRepo implements CursaRepository {
         logger.traceExit(Curse);
 
         return Curse;
+    }
+
+    @Override
+    public Vector<DTOBJCursa> GroupByCapacitate() {
+        Vector<DTOBJCursa> curse=new Vector<>();
+        logger.traceEntry("Se groupeaza cursele dupa capacitate");
+
+        Connection con=utils.getConnection();
+        try(PreparedStatement preStmt=con.prepareStatement("select C.idCursa,C.capacitate,count(P.idParticipant) as Nr from Cursa C LEFT JOIN Inscriere I on C.idCursa = I.idCursa LEFT JOIN Participant P on I.idParticipant = P.idParticipant GROUP BY C.capacitate;")){
+            try(ResultSet result=preStmt.executeQuery()){
+                while(result.next()){
+                    int id=result.getInt("idCursa");
+                    int capacitate=result.getInt("capacitate");
+                    int nrinscrisi=result.getInt("Nr");
+                    DTOBJCursa obj=new DTOBJCursa(id,capacitate,nrinscrisi);
+                    curse.add(obj);
+                }
+            }
+
+        }catch(SQLException ex){
+            logger.error(ex);
+        }
+        return curse;
     }
 }

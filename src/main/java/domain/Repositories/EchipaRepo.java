@@ -1,6 +1,7 @@
 package domain.Repositories;
 
 import domain.Models.Cursa;
+import domain.Models.DTOBJPartCapa;
 import domain.Models.Echipa;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,6 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
+import java.util.Vector;
 
 public class EchipaRepo implements EchipaRepository {
     private JDBC utils;
@@ -124,4 +126,27 @@ public class EchipaRepo implements EchipaRepository {
         return null;
     }
 
+    @Override
+    public Vector<DTOBJPartCapa> cautare(String numeEchipa) {
+        Vector<DTOBJPartCapa> obiecte=new Vector<>();
+        logger.traceEntry("Se cauta numele participantilor din echipa {}",numeEchipa);
+
+        Connection con=utils.getConnection();
+
+        try(PreparedStatement preStmt=con.prepareStatement("select P.nume,C.capacitate from Cursa C INNER JOIN Inscriere I on C.idCursa = I.idCursa INNER JOIN Participant P on I.idParticipant = P.idParticipant INNER JOIN Echipa E on P.idEchipa = E.idEchipa WHERE E.nume=?")){
+            preStmt.setString(1,numeEchipa);
+            try(ResultSet result=preStmt.executeQuery()){
+                while (result.next()){
+                String nume=result.getString("nume");
+                int capacitate=result.getInt("capacitate");
+                DTOBJPartCapa obj=new DTOBJPartCapa(nume,capacitate);
+                obiecte.add(obj);
+                }
+            }
+
+        }catch (SQLException ex){
+            logger.error(ex);
+        }
+        return obiecte;
+    }
 }

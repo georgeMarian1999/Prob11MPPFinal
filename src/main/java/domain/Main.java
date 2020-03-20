@@ -1,20 +1,14 @@
 package domain;
 
-import domain.Models.Angajat;
-import domain.Models.Cursa;
-import domain.Models.Participant;
-import domain.Models.Echipa;
-import domain.Repositories.AngajatRepo;
-import domain.Repositories.CursaRepo;
-import domain.Repositories.EchipaRepo;
-import domain.Repositories.ParticipantRepo;
+import domain.Models.*;
+import domain.Repositories.*;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Properties;
+import java.util.*;
 
 public class Main {
     static AngajatRepo getAngajatRepo(){
@@ -37,6 +31,11 @@ public class Main {
         EchipaRepo e = context.getBean(EchipaRepo.class);
         return e;
     }
+    static InscriereRepo getInscriereRepo(){
+        ApplicationContext context=new ClassPathXmlApplicationContext("BeanXML.xml");
+        InscriereRepo insc= context.getBean(InscriereRepo.class);
+        return insc;
+    }
         public static void main(String[] args) {
             Properties props = new Properties();
             try {
@@ -51,11 +50,13 @@ public class Main {
             CursaRepo C=getCursaRepo();
             EchipaRepo E=getEchipaRepo();
             ParticipantRepo P=getParticipantRepo();
+            InscriereRepo I=getInscriereRepo();
 
             System.out.println("AngajatRepo size is "+A.size());
             System.out.println("CursaRepo size is "+C.size());
             System.out.println("EchipaRepo size is "+E.size());
             System.out.println("ParticipantRepo size is "+P.size());
+            System.out.println("InscriereRepo size is "+I.size());
             System.out.println(A.findOne(1).getUsername());
             System.out.println(C.findOne(3).getCapacitate());
             System.out.println(E.findOne(25).getNume());
@@ -79,6 +80,19 @@ public class Main {
             System.out.println(A.LocalLogin("mgar1992","12234"));
             System.out.println(A.LocalLogin("mgar1992","22"));
             System.out.println(A.LocalLogin("afsnajf","ajf3"));
+            Vector<DTOBJCursa> curse=C.GroupByCapacitate();
+            for(int i=0;i<curse.size();i++){
+                System.out.print(curse.elementAt(i).getCapacitate());
+                System.out.print(" ");
+                System.out.println(curse.elementAt(i).getNrinscrisi());
+            }
+            Vector<DTOBJPartCapa> test=E.cautare("Suzuki");
+            for(int i=0;i<test.size();i++){
+                System.out.print(test.elementAt(i).getNume());
+                System.out.print(" ");
+                System.out.println(test.elementAt(i).getCapactiate());
+            }
+
 
         }
     }
