@@ -106,7 +106,7 @@ public class Main {
             System.out.println(S.CurseSize());
             System.out.println(S.EchipeSize());
             System.out.println(S.ParticipantiSize());
-            S.InscriereParticipant(500,"Marcel Mihai","Suzuki");
+           // S.InscriereParticipant(500,"Marcel Mihai","Suzuki");
 
 
 

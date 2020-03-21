@@ -2,7 +2,6 @@ package domain.Service;
 
 import domain.Models.*;
 import domain.Repositories.*;
-
 import java.util.Vector;
 
 public class Service {
@@ -75,6 +74,9 @@ public class Service {
     }
     public Vector<DTOBJPartCapa> cautare(String numeEchipa){
         return this.echipe.cautare(numeEchipa);
+    }
+    public Vector<DTOBJCursa> GroupByCapacitate(){
+        return this.curse.GroupByCapacitate();
     }
     public void InscriereParticipant(int capacitate,String numeParticipant,String numeEchipa){
         int idCursa,idEchipa,idParticipant,idInscriere;
