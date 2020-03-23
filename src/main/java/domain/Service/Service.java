@@ -72,10 +72,10 @@ public class Service {
     public boolean LocalLogin(String username,String password){
         return this.angajati.LocalLogin(username,password);
     }
-    public Vector<DTOBJPartCapa> cautare(String numeEchipa){
+    public Iterable<DTOBJPartCapa> cautare(String numeEchipa){
         return this.echipe.cautare(numeEchipa);
     }
-    public Vector<DTOBJCursa> GroupByCapacitate(){
+    public Iterable<DTOBJCursa> GroupByCapacitate(){
         return this.curse.GroupByCapacitate();
     }
     public void InscriereParticipant(int capacitate,String numeParticipant,String numeEchipa){

@@ -1,23 +1,23 @@
 package domain.Models;
 
 public class DTOBJCursa implements Entity<Integer> {
-    private Integer idCursa;
+    private int id;
     private int capacitate;
     private int Nrinscrisi;
 
     public DTOBJCursa(int idcursa,int cap,int nr){
-        this.idCursa=idcursa;
+        this.id=idcursa;
         this.capacitate=cap;
         this.Nrinscrisi=nr;
     }
     @Override
     public Integer getId() {
-        return idCursa;
+        return id;
     }
 
     @Override
     public void setID(Integer integer) {
-        this.idCursa=integer;
+        this.id=integer;
     }
 
     public int getCapacitate() {

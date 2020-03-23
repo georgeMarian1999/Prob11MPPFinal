@@ -25,7 +25,7 @@
     <bean id="repoInscriere" class="domain.Repositories.InscriereRepo">
         <constructor-arg ref="jdbcProps"/>
     </bean>
-    <bean id="service" class="domain.Service.Service">
+    <bean id="Service" class="domain.Service.Service">
         <constructor-arg ref="repoAngajat"/>
         <constructor-arg ref="repoCursa"/>
         <constructor-arg ref="repoEchipa"/>

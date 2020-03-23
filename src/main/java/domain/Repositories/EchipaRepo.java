@@ -14,6 +14,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import java.util.Vector;
 
@@ -127,19 +129,20 @@ public class EchipaRepo implements EchipaRepository {
     }
 
     @Override
-    public Vector<DTOBJPartCapa> cautare(String numeEchipa) {
-        Vector<DTOBJPartCapa> obiecte=new Vector<>();
+    public Iterable<DTOBJPartCapa> cautare(String numeEchipa) {
+        List<DTOBJPartCapa> obiecte=new ArrayList<>();
         logger.traceEntry("Se cauta numele participantilor din echipa {}",numeEchipa);
 
         Connection con=utils.getConnection();
 
-        try(PreparedStatement preStmt=con.prepareStatement("select P.nume,C.capacitate from Cursa C INNER JOIN Inscriere I on C.idCursa = I.idCursa INNER JOIN Participant P on I.idParticipant = P.idParticipant INNER JOIN Echipa E on P.idEchipa = E.idEchipa WHERE E.nume=?")){
+        try(PreparedStatement preStmt=con.prepareStatement("select P.idParticipant,P.nume,C.capacitate from Cursa C INNER JOIN Inscriere I on C.idCursa = I.idCursa INNER JOIN Participant P on I.idParticipant = P.idParticipant INNER JOIN Echipa E on P.idEchipa = E.idEchipa WHERE E.nume=?")){
             preStmt.setString(1,numeEchipa);
             try(ResultSet result=preStmt.executeQuery()){
                 while (result.next()){
+                int id=result.getInt("idParticipant");
                 String nume=result.getString("nume");
                 int capacitate=result.getInt("capacitate");
-                DTOBJPartCapa obj=new DTOBJPartCapa(nume,capacitate);
+                DTOBJPartCapa obj=new DTOBJPartCapa(id,nume,capacitate);
                 obiecte.add(obj);
                 }
             }

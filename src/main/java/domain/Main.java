@@ -1,15 +1,9 @@
 package domain;
 
-import domain.Controller.LoginController;
+
 import domain.Models.*;
 import domain.Repositories.*;
 import domain.Service.Service;
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -18,7 +12,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
-public class Main extends Application {
+public class Main  {
+    public Main(){
+
+    }
     static AngajatRepo getAngajatRepo(){
         ApplicationContext context = new ClassPathXmlApplicationContext("BeanXML.xml");
         AngajatRepo pers = context.getBean(AngajatRepo.class);
@@ -49,7 +46,7 @@ public class Main extends Application {
         Service service=context.getBean(Service.class);
         return service;
     }
-    public void ConsoleRun(){
+    public static void ConsoleRun(){
         Properties props = new Properties();
         try {
             props.load(new FileReader("bd.config"));
@@ -73,7 +70,6 @@ public class Main extends Application {
         System.out.println(A.findOne(1).getUsername());
         System.out.println(C.findOne(3).getCapacitate());
         System.out.println(E.findOne(1).getNume());
-        System.out.println(P.findOne(3).getNume());
         Angajat Ang=new Angajat(200,"test","test2");
         A.save(Ang);
         System.out.println(A.findOne(200).getUsername());
@@ -93,8 +89,8 @@ public class Main extends Application {
         System.out.println(A.LocalLogin("mgar1992","12234"));
         System.out.println(A.LocalLogin("mgar1992","22"));
         System.out.println(A.LocalLogin("afsnajf","ajf3"));
-        Vector<DTOBJCursa> curse=C.GroupByCapacitate();
-        for(int i=0;i<curse.size();i++){
+        //Vector<DTOBJCursa> curse=C.GroupByCapacitate();
+        /*for(int i=0;i<curse.size();i++){
             System.out.print(curse.elementAt(i).getCapacitate());
             System.out.print(" ");
             System.out.println(curse.elementAt(i).getNrinscrisi());
@@ -104,7 +100,7 @@ public class Main extends Application {
             System.out.print(test.elementAt(i).getNume());
             System.out.print(" ");
             System.out.println(test.elementAt(i).getCapactiate());
-        }
+        }*/
         System.out.println("Id ul echipei BMW este "+E.FindidByName("BMW"));
         System.out.println("Id ul maxim din Participant este "+P.findMaxId());
 
@@ -113,33 +109,25 @@ public class Main extends Application {
         System.out.println(S.CurseSize());
         System.out.println(S.EchipeSize());
         System.out.println(S.ParticipantiSize());
-        // S.InscriereParticipant(500,"Marcel Mihai","Suzuki");
+        Iterable<DTOBJPartCapa> lista=S.cautare("Honda");
+        for(DTOBJPartCapa c:lista){
+            System.out.print(c.getId());
+            System.out.print(" ");
+            System.out.print(c.getNume());
+            System.out.print(" ");
+            System.out.println(c.getCapactiate());
+
+
+        }
+        // S.InscriereParticipant(500,"Bogdan Andrei","Honda");
 
     }
         public static void main(String[] args) {
-            //this.ConsoleRun();
-            launch(args);
+           //ConsoleRun();
+            MainApp.main(args);
         }
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-            try{
-                FXMLLoader loader=new FXMLLoader();
-                loader.setLocation(getClass().getResource("/View/LoginView.fxml"));
-                AnchorPane root=loader.load();
-                Stage LoginStage=new Stage();
-                Scene loginScene = new Scene(root);
-                LoginStage.setScene(loginScene);
-                LoginStage.setTitle("Login");
-                LoginStage.initModality(Modality.WINDOW_MODAL);
-                LoginController ctrl=loader.getController();
-                ctrl.setService(getService(),LoginStage);
-                LoginStage.show();
-            }catch (IOException ex){
-                ex.printStackTrace();
-            }
 
-    }
 
 }
 

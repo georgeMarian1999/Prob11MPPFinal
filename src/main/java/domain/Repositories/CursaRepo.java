@@ -144,8 +144,8 @@ public class CursaRepo implements CursaRepository {
     }
 
     @Override
-    public Vector<DTOBJCursa> GroupByCapacitate() {
-        Vector<DTOBJCursa> curse=new Vector<>();
+    public Iterable<DTOBJCursa> GroupByCapacitate() {
+        List<DTOBJCursa> curse=new ArrayList<>();
         logger.traceEntry("Se groupeaza cursele dupa capacitate");
 
         Connection con=utils.getConnection();

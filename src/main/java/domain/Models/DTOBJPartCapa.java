@@ -1,10 +1,12 @@
 package domain.Models;
 
-public class DTOBJPartCapa  {
+public class DTOBJPartCapa implements Entity<Integer> {
+    private Integer id;
     private String nume;
     private int capactiate;
 
-    public DTOBJPartCapa(String Nume,int cap){
+    public DTOBJPartCapa(Integer ID,String Nume,int cap){
+        this.id=ID;
         this.nume=Nume;
         this.capactiate=cap;
     }
@@ -23,5 +25,15 @@ public class DTOBJPartCapa  {
 
     public void setCapactiate(int capactiate) {
         this.capactiate = capactiate;
+    }
+
+    @Override
+    public Integer getId() {
+        return this.id;
+    }
+
+    @Override
+    public void setID(Integer integer) {
+        this.id=integer;
     }
 }
